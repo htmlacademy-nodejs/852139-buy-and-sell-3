@@ -13,7 +13,7 @@ const {
   PictureRestrict,
   SumRestrict,
   OfferType,
-} = require('../../constants');
+} = require(`../../constants`);
 
 const {
   shuffleArray,
