@@ -1,7 +1,7 @@
 # Учебный проект «Куплю. Продам» [![Build status][travis-image]][travis-url]
 
-* Студент: [Сергей Шрамко](https://up.htmlacademy.ru/nodejs/3/user/852139).
-* Наставник: `Неизвестно`.
+* Студент: [Сергей Шрамко](https://htmlacademy.ru/profile/id852139).
+* Наставник: [Konstantin Mamaev](https://htmlacademy.ru/profile/meison).
 
 ---
 
