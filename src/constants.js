@@ -53,8 +53,8 @@ const PictureRestrict = {
 }
 
 const ExitCode = {
-  error: 1,
-  success: 0,
+  ERROR: 1,
+  SUCCESS: 0,
 };
 
 module.exports = {
