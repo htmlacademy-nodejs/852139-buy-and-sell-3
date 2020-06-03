@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require(`fs`);
+const chalk = require(`chalk`);
 
 const {
   CATEGORIES,
@@ -45,17 +46,17 @@ module.exports = {
     const countOffer = checkNumber(count);
 
     if (countOffer > MAX_OFFER_AMOUNT) {
-      return console.log(`Не больше 1000 объявлений`);
+      return console.log(chalk.red(`Не больше 1000 объявлений`));
     }
 
     const content = JSON.stringify(generateOffers(countOffer));
 
     fs.writeFile(FILE_NAME, content, (err) => {
       if (err) {
-        return console.error(`Can't write data to file...`);
+        return console.error(chalk.red(`Can't write data to file...`));
       }
 
-      return console.info(`Operation success. File created.`);
+      return console.info(chalk.green(`Operation success. File created.`));
     });
   }
 }
