@@ -43,7 +43,7 @@ const generateOffers = (count) => (
 module.exports = {
   name: `--generate`,
   run(count) {
-    const countOffer = checkNumber(count);
+    const countOffer = checkNumber(count, DEFAULT_COUNT);
 
     if (countOffer > MAX_OFFER_AMOUNT) {
       return console.log(chalk.red(`Не больше 1000 объявлений`));
