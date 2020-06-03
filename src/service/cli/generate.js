@@ -19,6 +19,7 @@ const {
   shuffleArray,
   getRandomInt,
   getRandomItemFrom,
+  checkNumber,
 } = require(`../../utils`);
 
 const getPictureFileName = (number) => {
@@ -41,11 +42,12 @@ const generateOffers = (count) => (
 module.exports = {
   name: `--generate`,
   run(count) {
-    if (count > MAX_OFFER_AMOUNT) {
+    const countOffer = checkNumber(count);
+
+    if (countOffer > MAX_OFFER_AMOUNT) {
       return console.log(`Не больше 1000 объявлений`);
     }
 
-    const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
     const content = JSON.stringify(generateOffers(countOffer));
 
     fs.writeFile(FILE_NAME, content, (err) => {
