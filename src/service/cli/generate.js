@@ -3,10 +3,11 @@
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 
+const FILE_SENTENCES_PATH = `./data/sentences.txt`;
+const FILE_TITLES_PATH = `./data/titles.txt`;
+const FILE_CATEGORIES_PATH = `./data/categories.txt`;
+
 const {
-  CATEGORIES,
-  SENTENCES,
-  TITLES,
   FILE_NAME,
   MAX_DESCRIPTION_LENGTH,
   MAX_OFFER_AMOUNT,
@@ -29,27 +30,40 @@ const getPictureFileName = (number) => {
     : `item${number}.jpg`;
 }
 
-const generateOffers = (count) => (
+const generateOffers = (count, titles, categories, sentences) => (
   [...Array(count)].map(() => ({
-    category: [getRandomItemFrom(CATEGORIES), getRandomItemFrom(CATEGORIES)],
-    description: shuffleArray(SENTENCES).slice(0, MAX_DESCRIPTION_LENGTH).join(` `),
+    category: [getRandomItemFrom(categories), getRandomItemFrom(categories)],
+    description: shuffleArray(sentences).slice(0, MAX_DESCRIPTION_LENGTH).join(` `),
     picture: getPictureFileName(getRandomInt(PictureRestrict.MIN, PictureRestrict.MAX)),
-    title: getRandomItemFrom(TITLES),
+    title: getRandomItemFrom(titles),
     type: getRandomItemFrom(Object.keys(OfferType)),
     sum: getRandomInt(SumRestrict.MIN, SumRestrict.MAX),
   }))
 );
 
+const readContent = async (filePath) => {
+  try {
+    const content = await fs.readFile(filePath, `utf8`);
+    return content.split(`\n`);
+  } catch (err) {
+    console.error(chalk.red(err));
+    return [];
+  }
+};
+
 module.exports = {
   name: `--generate`,
   async run(count) {
+    const sentences = await readContent(FILE_SENTENCES_PATH);
+    const titles = await readContent(FILE_TITLES_PATH);
+    const categories = await readContent(FILE_CATEGORIES_PATH);
     const countOffer = checkNumber(count, DEFAULT_COUNT);
 
     if (countOffer > MAX_OFFER_AMOUNT) {
       return console.log(chalk.red(`Не больше 1000 объявлений`));
     }
 
-    const content = JSON.stringify(generateOffers(countOffer));
+    const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
 
     try {
       await fs.writeFile(FILE_NAME, content);
