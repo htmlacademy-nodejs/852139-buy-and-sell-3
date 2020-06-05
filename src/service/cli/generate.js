@@ -54,15 +54,20 @@ const readContent = async (filePath) => {
 module.exports = {
   name: `--generate`,
   async run(count) {
-    const sentences = await readContent(FILE_SENTENCES_PATH);
-    const titles = await readContent(FILE_TITLES_PATH);
-    const categories = await readContent(FILE_CATEGORIES_PATH);
+    // Вынес проверку вверх, так как если некорректное число
+    // нет смысла читать контент из файлов и что-то уже генерировать.
     const countOffer = checkNumber(count, DEFAULT_COUNT);
 
     if (countOffer > MAX_OFFER_AMOUNT) {
       return console.log(chalk.red(`Не больше 1000 объявлений`));
     }
 
+    const sentencesPromise = readContent(FILE_SENTENCES_PATH);
+    const titlesPromise = readContent(FILE_TITLES_PATH);
+    const categoriesPromise = readContent(FILE_CATEGORIES_PATH);
+
+    const [titles, categories, sentences] = await Promise
+      .all([titlesPromise, categoriesPromise, sentencesPromise]);
     const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
 
     try {
