@@ -23,6 +23,7 @@ const {
   getRandomItemFrom,
   checkNumber,
   readContent,
+  splitString,
 } = require(`../../utils`);
 
 const getPictureFileName = (number) => {
@@ -64,7 +65,9 @@ module.exports = {
       // Ждем ресолв всех файлов и отдаем и на генерацию оферов
       const [titles, categories, sentences] = await Promise
         .all([titlesPromise, categoriesPromise, sentencesPromise]);
-      const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
+
+      const offers = generateOffers(countOffer, splitString(titles), splitString(categories), splitString(sentences));
+      const content = JSON.stringify(offers);
 
       // Записываем контент в файл
       await fs.writeFile(FILE_NAME, content);

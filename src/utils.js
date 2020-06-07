@@ -31,20 +31,18 @@ const checkNumber = (number, defaultValue, base = 10) => {
     return defaultValue;
   }
 
-  return  parsed;
+  return parsed;
 };
 
 const readContent = async (filePath) => {
   try {
-    const content = await fs.readFile(filePath, `utf8`);
-    return content
-      .trim()
-      .split(`\n`);
+    return await fs.readFile(filePath, `utf8`);
   } catch (err) {
     console.error(chalk.red(err));
-    return [];
   }
 };
+
+const splitString = (string) => string.trim().split(`\n`);
 
 module.exports = {
   getRandomInt,
@@ -52,4 +50,5 @@ module.exports = {
   getRandomItemFrom,
   checkNumber,
   readContent,
+  splitString,
 };

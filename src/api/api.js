@@ -10,6 +10,8 @@ const {
   HttpCode,
 } = require('../constants');
 
+const {readContent} = require('../utils')
+
 const sendResponse = (res, statusCode, message) => {
   const template = `
     <!Doctype html>
@@ -33,7 +35,7 @@ const requestHandler = async (req, res) => {
   switch (req.url) {
     case `/`:
       try {
-        const fileContent = await fs.readFile(FILE_NAME);
+        const fileContent = await readContent(FILE_NAME);
         const mocks = JSON.parse(fileContent);
         const message = mocks.map((post) => `<li>${post.title}</li>`).join(``);
         sendResponse(res, HttpCode.OK, `<ul>${message}</ul>`);
