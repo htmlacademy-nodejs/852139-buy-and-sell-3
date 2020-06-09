@@ -22,6 +22,8 @@ const {
   getRandomInt,
   getRandomItemFrom,
   checkNumber,
+  readContent,
+  splitString,
 } = require(`../../utils`);
 
 const getPictureFileName = (number) => {
@@ -41,16 +43,6 @@ const generateOffers = (count, titles, categories, sentences) => (
   }))
 );
 
-const readContent = async (filePath) => {
-  try {
-    const content = await fs.readFile(filePath, `utf8`);
-    return content.split(`\n`);
-  } catch (err) {
-    console.error(chalk.red(err));
-    return [];
-  }
-};
-
 module.exports = {
   name: `--generate`,
   async run(count) {
@@ -62,15 +54,22 @@ module.exports = {
       return console.log(chalk.red(`Не больше 1000 объявлений`));
     }
 
-    const sentencesPromise = readContent(FILE_SENTENCES_PATH);
-    const titlesPromise = readContent(FILE_TITLES_PATH);
-    const categoriesPromise = readContent(FILE_CATEGORIES_PATH);
 
-    const [titles, categories, sentences] = await Promise
-      .all([titlesPromise, categoriesPromise, sentencesPromise]);
-    const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
-
+    // Расширил рамки try/catch так-как ошибка может быть и во время чтения файлов
     try {
+      // Создание промисов для чтения файлов
+      const sentencesPromise = readContent(FILE_SENTENCES_PATH);
+      const titlesPromise = readContent(FILE_TITLES_PATH);
+      const categoriesPromise = readContent(FILE_CATEGORIES_PATH);
+
+      // Ждем ресолв всех файлов и отдаем и на генерацию оферов
+      const [titles, categories, sentences] = await Promise
+        .all([titlesPromise, categoriesPromise, sentencesPromise]);
+
+      const offers = generateOffers(countOffer, splitString(titles), splitString(categories), splitString(sentences));
+      const content = JSON.stringify(offers);
+
+      // Записываем контент в файл
       await fs.writeFile(FILE_NAME, content);
       console.info(chalk.green(`Operation success. File created.`))
     } catch (error) {

@@ -8,8 +8,10 @@ module.exports = {
     const text = `
     Программа запускает http-сервер и формирует файл с данными для api.
     Гайд:
-      server <command>
+      service <command>
+
       Команды:
+      --server <port>       запускает сервер на указанном порте
       --version:            выводит номер версии
       --help:               печатает этот текст
       --generate <count>    формирует файл mocks.json
