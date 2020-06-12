@@ -6,7 +6,11 @@ const MAX_OFFER_AMOUNT = 1000;
 const DEFAULT_COMMAND = `--help`;
 const USER_ARGV_INDEX = 2;
 const FILE_NAME = `./mocks.json`;
-const DEFAULT_PORT = 3000;
+
+const DefaultPort = {
+  FRONT: 8080,
+  SERVICE: 3000,
+}
 
 const OfferType = {
   OFFER: `offer`,
@@ -38,7 +42,6 @@ const HttpCode = {
 
 module.exports = {
   DEFAULT_COMMAND,
-  DEFAULT_PORT,
   USER_ARGV_INDEX,
   DEFAULT_COUNT,
   MAX_DESCRIPTION_LENGTH,
@@ -49,4 +52,5 @@ module.exports = {
   OfferType,
   ExitCode,
   HttpCode,
+  DefaultPort,
 };
