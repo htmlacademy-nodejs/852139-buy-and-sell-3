@@ -6,6 +6,7 @@ const MAX_OFFER_AMOUNT = 1000;
 const DEFAULT_COMMAND = `--help`;
 const USER_ARGV_INDEX = 2;
 const FILE_NAME = `./mocks.json`;
+const PUBLIC_DIR = `public`;
 
 const DefaultPort = {
   FRONT: 8080,
@@ -47,6 +48,7 @@ module.exports = {
   MAX_DESCRIPTION_LENGTH,
   MAX_OFFER_AMOUNT,
   FILE_NAME,
+  PUBLIC_DIR,
   SumRestrict,
   PictureRestrict,
   OfferType,
