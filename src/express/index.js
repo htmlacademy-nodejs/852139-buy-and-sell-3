@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const express = require(`express`);
 const path = require(`path`);
@@ -28,7 +28,5 @@ app.use(`/`, mainRoutes);
 // errors routes
 app.use((req, res) => res.status(400).render(`errors/404`));
 app.use((err, req, res) => res.status(500).render(`errors/500`));
-
-
 
 app.listen(DefaultPort.FRONT, () => console.log(`Слушаю ${DefaultPort.FRONT} порт`));

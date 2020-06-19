@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
@@ -38,7 +38,7 @@ const readContent = async (filePath) => {
   try {
     return await fs.readFile(filePath, `utf8`);
   } catch (err) {
-    console.error(chalk.red(err));
+    return console.error(chalk.red(err));
   }
 };
 

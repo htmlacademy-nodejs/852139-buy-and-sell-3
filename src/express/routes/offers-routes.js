@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const { Router } = require(`express`);
+const {Router} = require(`express`);
 const offersRouter = new Router();
 
 offersRouter.get(`/category/:id`, (req, res) => res.render(`offers/category`));

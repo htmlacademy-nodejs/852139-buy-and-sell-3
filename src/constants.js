@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const DEFAULT_COUNT = 1;
 const MAX_DESCRIPTION_LENGTH = 5;
@@ -11,7 +11,7 @@ const PUBLIC_DIR = `public`;
 const DefaultPort = {
   FRONT: 8080,
   SERVICE: 3000,
-}
+};
 
 const OfferType = {
   OFFER: `offer`,
@@ -26,7 +26,7 @@ const SumRestrict = {
 const PictureRestrict = {
   MIN: 1,
   MAX: 16,
-}
+};
 
 const ExitCode = {
   ERROR: 1,
