@@ -1,64 +1,40 @@
 "use strict";
 
 // Где-то в лекция говорилось, что в index.js должны быть только импорты и никакой логики, поэтому вынес отдельно.
-const http = require(`http`);
 const chalk = require(`chalk`);
+const express = require(`express`);
 
 const {
   FILE_NAME,
   HttpCode,
 } = require(`../constants`);
 
-const {readContent} = require(`../utils`);
+const {
+  readContent,
+} = require(`../utils`);
 
-const sendResponse = (res, statusCode, message) => {
-  const template = `
-    <!Doctype html>
-      <html lang="ru">
-      <head>
-        <title>With love from Node</title>
-      </head>
-      <body>${message}</body>
-    </html>`.trim();
+const app = express();
+app.use(express.json());
 
-  res.statusCode = statusCode;
-  res.writeHead(statusCode, {
-    "Content-Type": `text/html; charset=UTF-8`,
-  });
-
-  res.end(template);
-};
-
-const requestHandler = async (req, res) => {
-  const NOT_FOUND_MESSAGE = `Not found`;
-  switch (req.url) {
-    case `/`:
-      try {
-        const fileContent = await readContent(FILE_NAME);
-        const mocks = JSON.parse(fileContent);
-        const message = mocks.map((post) => `<li>${post.title}</li>`).join(``);
-        sendResponse(res, HttpCode.OK, `<ul>${message}</ul>`);
-      } catch (err) {
-        sendResponse(res, HttpCode.NOT_FOUND, NOT_FOUND_MESSAGE);
-      }
-
-      break;
-    default:
-      sendResponse(res, HttpCode.NOT_FOUND, NOT_FOUND_MESSAGE);
-      break;
+app.get(`/offers`, async (req, res) => {
+  try {
+    const fileContent = await readContent(FILE_NAME);
+    const mocks = JSON.parse(fileContent);
+    res.json(mocks);
+  } catch (error) {
+    res
+      .status(HttpCode.INTERNAL_SERVER_ERROR)
+      .send(error);
   }
-};
+});
 
 const initServer = (port) => {
-  http.createServer(requestHandler)
-    .listen(port)
-    .on(`listening`, (error) => {
-      if (error) {
-        return console.error(`Ошибка при создании сервера`, error);
-      }
-
-      return console.info(chalk.green(`Ожидаю соединений на ${port}`));
-    });
+  app.listen(port, (err) => {
+    if (err) {
+      return console.error(`Ошибка при создании сервера`, err);
+    }
+    return console.info(chalk.green(`Ожидаю соединений на ${port}`));
+  });
 };
 
 module.exports = {
