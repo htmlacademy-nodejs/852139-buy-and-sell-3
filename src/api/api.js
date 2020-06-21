@@ -1,16 +1,15 @@
-'use strict';
-// Где-то в лекция говорилось, что в index.js должны быть только импорты и никакой логики, поэтому вынес отдельно.
+"use strict";
 
+// Где-то в лекция говорилось, что в index.js должны быть только импорты и никакой логики, поэтому вынес отдельно.
 const http = require(`http`);
 const chalk = require(`chalk`);
-const fs = require(`fs`).promises;
 
 const {
   FILE_NAME,
   HttpCode,
-} = require('../constants');
+} = require(`../constants`);
 
-const {readContent} = require('../utils')
+const {readContent} = require(`../utils`);
 
 const sendResponse = (res, statusCode, message) => {
   const template = `
@@ -24,7 +23,7 @@ const sendResponse = (res, statusCode, message) => {
 
   res.statusCode = statusCode;
   res.writeHead(statusCode, {
-    'Content-Type': `text/html; charset=UTF-8`,
+    "Content-Type": `text/html; charset=UTF-8`,
   });
 
   res.end(template);
@@ -59,7 +58,7 @@ const initServer = (port) => {
       }
 
       return console.info(chalk.green(`Ожидаю соединений на ${port}`));
-    })
+    });
 };
 
 module.exports = {

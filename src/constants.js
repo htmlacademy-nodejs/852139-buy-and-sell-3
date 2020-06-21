@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const DEFAULT_COUNT = 1;
 const MAX_DESCRIPTION_LENGTH = 5;
@@ -6,11 +6,12 @@ const MAX_OFFER_AMOUNT = 1000;
 const DEFAULT_COMMAND = `--help`;
 const USER_ARGV_INDEX = 2;
 const FILE_NAME = `./mocks.json`;
+const PUBLIC_DIR = `public`;
 
 const DefaultPort = {
   FRONT: 8080,
   SERVICE: 3000,
-}
+};
 
 const OfferType = {
   OFFER: `offer`,
@@ -25,7 +26,7 @@ const SumRestrict = {
 const PictureRestrict = {
   MIN: 1,
   MAX: 16,
-}
+};
 
 const ExitCode = {
   ERROR: 1,
@@ -47,6 +48,7 @@ module.exports = {
   MAX_DESCRIPTION_LENGTH,
   MAX_OFFER_AMOUNT,
   FILE_NAME,
+  PUBLIC_DIR,
   SumRestrict,
   PictureRestrict,
   OfferType,

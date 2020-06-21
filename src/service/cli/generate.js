@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
@@ -30,7 +30,7 @@ const getPictureFileName = (number) => {
   return number < 10
     ? `item0${number}.jpg`
     : `item${number}.jpg`;
-}
+};
 
 const generateOffers = (count, titles, categories, sentences) => (
   [...Array(count)].map(() => ({
@@ -71,10 +71,10 @@ module.exports = {
 
       // Записываем контент в файл
       await fs.writeFile(FILE_NAME, content);
-      console.info(chalk.green(`Operation success. File created.`))
+      return console.info(chalk.green(`Operation success. File created.`));
     } catch (error) {
-      console.log(error)
-      console.error(chalk.red(`Can't write data to file...`))
+      console.log(error);
+      return console.error(chalk.red(`Can't write data to file...`));
     }
   }
-}
+};

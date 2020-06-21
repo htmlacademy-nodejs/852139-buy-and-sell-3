@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const {
   initServer,
@@ -21,4 +21,4 @@ module.exports = {
 
     initServer(port);
   }
-}
+};
